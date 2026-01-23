@@ -1,0 +1,20 @@
+{
+  "name": "dsa",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "arrays": "ts-node src/arrays.ts",
+    "prefixsum": "ts-node src/prefixsum.ts",
+    "slidingwindow": "ts-node src/slidingwindow.ts",
+    "strings": "ts-node src/strings.ts",
+    "twopointer": "ts-node src/twopointer.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.11.0",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
