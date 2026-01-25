@@ -53,7 +53,7 @@ function reverseWords(s: string): string {
 // console.log(reverseWords("the sky is blue"));
 // console.log(reverseWords("  hello world  "));
 // console.log(reverseWords("a good   example"));
-console.log(reverseWords("Je suis tres content"));
+// console.log(reverseWords("Je suis tres content"));
 
 // in-progress
 function intToRoman(num: number): string {
@@ -70,19 +70,88 @@ function intToRoman(num: number): string {
   const numstr = num.toString();
   let answer: string[] = [];
   for (let i = 0; i < numstr.length; i++) {
-    const place = numstr.length - i;
+    const place = numstr.length - i - 1;
     const digit = parseInt(numstr[i]);
-    const total = digit * 10 ** (place - 1);
+    const total = digit * 10 ** place;
     if ((numstr[i] === "4" || numstr[i] === "9") && total < 1000) {
-      answer.push(mapconvert[1] + mapconvert[digit + 1]);
+      const exponent = 1 * 10 ** place;
+      answer.push(mapconvert[exponent] + mapconvert[total + exponent]);
+    } else if (total >= 500 && total < 1000) {
+      answer.push(mapconvert[500]);
+      const hundreds = (total - 500) / 100;
+      for (let j = 0; j < hundreds; j++) {
+        answer.push(mapconvert[100]);
+      }
+    } else if (total >= 50 && total < 100) {
+      answer.push(mapconvert[50]);
+      const tens = (total - 50) / 10;
+      for (let j = 0; j < tens; j++) {
+        answer.push(mapconvert[10]);
+      }
+    } else if (total >= 5 && total < 10) {
+      answer.push(mapconvert[5]);
+      const ones = total - 5;
+      for (let j = 0; j < ones; j++) {
+        answer.push(mapconvert[1]);
+      }
     } else {
       const mapvalue = total / digit;
-      answer.push(mapconvert[mapvalue].repeat(place));
+      answer.push(mapconvert[mapvalue].repeat(digit));
     }
   }
   return answer.join("");
 }
 
-// console.log(intToRoman(3749)); // "MMMDCCXLIX"
-// console.log(intToRoman(58)); // "LVIII"
-// console.log(intToRoman(1994)); // "MCMXCIV"
+function toRomanNumeral(num: number): string {
+  // Validate input - Roman numerals traditionally represent 1-3999
+  if (num < 1 || num > 3999) {
+    throw new Error("Number must be between 1 and 3999");
+  }
+
+  // Pre-computed lookup table with values in descending order
+  // This includes subtractive notation cases (IV, IX, XL, XC, CD, CM)
+  // Using arrays instead of objects for better performance
+  const values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+  const numerals = [
+    "M",
+    "CM",
+    "D",
+    "CD",
+    "C",
+    "XC",
+    "L",
+    "XL",
+    "X",
+    "IX",
+    "V",
+    "IV",
+    "I",
+  ];
+
+  // Build result string by greedily selecting largest possible values
+  let result = "";
+
+  // Iterate through values from largest to smallest
+  for (let i = 0; i < values.length; i++) {
+    // Determine how many times current value fits into remaining number
+    // Using integer division (Math.floor) to get the count
+    const count = Math.floor(num / values[i]);
+
+    // Append the corresponding numeral 'count' times
+    // repeat() is O(n) but more efficient than a loop for string concatenation
+    if (count > 0) {
+      result += numerals[i].repeat(count);
+      // Reduce num by the amount we've converted
+      num -= values[i] * count;
+    }
+
+    // Early exit if we've converted the entire number
+    if (num === 0) break;
+  }
+
+  return result;
+}
+
+console.log(toRomanNumeral(3749)); // "MMMDCCXLIX"
+console.log(intToRoman(58)); // "LVIII"
+console.log(intToRoman(1994)); // "MCMXCIV"
