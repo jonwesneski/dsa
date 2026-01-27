@@ -1,0 +1,23 @@
+{
+  "name": "dsa",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "prefixsum": "ts-node src/algorithms/.ts",
+    "slidingwindow": "ts-node src/algorithms/slidingWindow/findRepeatedDnaSequences.ts",
+    "strings": "ts-node src/strings.ts",
+    "debugstrings": "node --inspect-brk -r ts-node/register src/strings.ts",
+    "twopointer": "ts-node src/twopointer.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.11.0",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
