@@ -5,7 +5,7 @@
   "scripts": {
     "arrays": "ts-node src/arrays.ts",
     "prefixsum": "ts-node src/prefixsum.ts",
-    "slidingwindow": "ts-node src/algorithms/slidingWindow/longestSubString.ts",
+    "slidingwindow": "ts-node src/algorithms/slidingWindow/findRepeatedDnaSequences.ts",
     "strings": "ts-node src/strings.ts",
     "debugstrings": "node --inspect-brk -r ts-node/register src/strings.ts",
     "twopointer": "ts-node src/twopointer.ts"
