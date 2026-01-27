@@ -1,7 +1,7 @@
 from typing import Dict
 
 
-def minWindowSubstring(n: str, k: str):
+def minSubstring(n: str, k: str):
     k_dict: Dict[str, int] = {}
     for c in k:
         if c in k_dict:
@@ -39,5 +39,5 @@ def minWindowSubstring(n: str, k: str):
 
     return min_answer
 
-print(minWindowSubstring("ahffaksfajeeubsne", "jefaa")) # aksfaje
-print(minWindowSubstring("aaffhkksemckelloe", "fhea")) # affhkkse
+# print(minSubstring("ahffaksfajeeubsne", "jefaa")) # aksfaje
+# print(minSubstring("aaffhkksemckelloe", "fhea")) # affhkkse
