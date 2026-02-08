@@ -1,8 +1,4 @@
-# Frontend
-
-## React
-
-What triggers re-renders:
+## What triggers re-renders:
 
 - Its props change
 - Its own state changes
