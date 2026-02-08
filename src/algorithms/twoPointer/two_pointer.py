@@ -69,40 +69,6 @@ def removeDuplicatesSorted(nums: list[int]) -> int:
 # print(removeDuplicatesSorted([1, 2, 3]))
 
 
-def threeSum(nums: List[int]) -> List[List[int]]:
-    answers = []
-    nums.sort()
-    for i in range(len(nums)):
-        if nums[i] > 0:
-            break
-        elif i > 0 and nums[i] == nums[i-1]:
-            # already computed
-            continue
-        
-        l, r = i+1, len(nums)-1
-        while l < r:
-            sum = nums[i] + nums[l] + nums[r]
-            if sum == 0:
-                # found match increment both l and r
-                answers.append([nums[i] , nums[l] , nums[r]])
-                l+=1
-                r-=1
-                # if the next l is the same no need to re-compute
-                while l < r and nums[l] == nums[l-1]:
-                    l+=1
-                # if the next r is the same no need to re-compute
-                while l < r and nums[r] == nums[r+1]:
-                    r-=1
-            elif sum < 0:
-                l+=1
-            else:
-                r-=1
-    return answers
-
-# print(threeSum([-1,0,1,2,-1,-4]))
-# print(threeSum([0,1,1]))
-# print(threeSum([0,0,0]))
-
 def maxArea(nums: list[int]) -> int:
     l, r = 0, len(nums) -1
     answer = 0
@@ -211,5 +177,5 @@ def closestPair(nums1: list[int], nums2: list[int], x: int) -> tuple[int, int]:
 
     return nums1[indexes[0]], nums2[indexes[1]]
 
-print(closestPair([1, 4, 5, 7], [10, 20, 30, 40], x = 32)) # [1,30]
-print(closestPair([1, 4, 5, 7], [10, 20, 30, 40], x = 50)) # [7,40]
+# print(closestPair([1, 4, 5, 7], [10, 20, 30, 40], x = 32)) # [1,30]
+# print(closestPair([1, 4, 5, 7], [10, 20, 30, 40], x = 50)) # [7,40]
