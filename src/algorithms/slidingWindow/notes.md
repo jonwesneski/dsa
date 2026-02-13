@@ -1,9 +1,8 @@
-================================================================================
-
-1. # FIXED SIZE SLIDING WINDOW
-   Problem: Find maximum sum of any subarray of size k
+## FIXED SIZE SLIDING WINDOW
 
 ```
+Problem: Find maximum sum of any subarray of size k
+
 function maxSumFixedWindow(arr, k):
     n = length of arr
     if n < k:
@@ -22,14 +21,14 @@ function maxSumFixedWindow(arr, k):
         maxSum = max(maxSum, windowSum)
 
     return maxSum
-```
 
-// Example: arr = [2, 1, 5, 1, 3, 2], k = 3
-// Window 1: [2, 1, 5] → sum = 8
-// Window 2: [1, 5, 1] → sum = 7 (add 1, remove 2)
-// Window 3: [5, 1, 3] → sum = 9 (add 3, remove 1)
-// Window 4: [1, 3, 2] → sum = 6 (add 2, remove 5)
-// Result: 9
+Example: arr = [2, 1, 5, 1, 3, 2], k = 3
+Window 1: [2, 1, 5] → sum = 8
+Window 2: [1, 5, 1] → sum = 7 (add 1, remove 2)
+Window 3: [5, 1, 3] → sum = 9 (add 3, remove 1)
+Window 4: [1, 3, 2] → sum = 6 (add 2, remove 5)
+Result: 9
+```
 
 ```
 function alternateMaxSumFixedWindow(arr, k):
@@ -47,11 +46,11 @@ function alternateMaxSumFixedWindow(arr, k):
     return maxSum
 ```
 
-# ================================================================================ 2. DYNAMIC (VARIABLE SIZE) SLIDING WINDOW
-
-Problem: Find longest substring with at most k distinct characters
+## DYNAMIC (VARIABLE SIZE) SLIDING WINDOW
 
 ```
+Problem: Find longest substring with at most k distinct characters
+
 function longestSubstringKDistinct(s, k):
     left = 0
     maxLength = 0
@@ -77,21 +76,21 @@ function longestSubstringKDistinct(s, k):
         maxLength = max(maxLength, right - left + 1)
 
     return maxLength
-```
 
-// Example: s = "eceba", k = 2
+    // Example: s = "eceba", k = 2
 // Window expands: e, ec, ece (valid - 2 distinct)
 // Window expands: eceb (invalid - 3 distinct)
 // → Shrink: ceb (valid - 2 distinct)
 // Window expands: ceba (invalid - 3 distinct)
 // → Shrink: eba (valid - 2 distinct)
 // Result: 3 (length of "ece" or "ceb")
+```
 
-# ================================================================================ 3. DYNAMIC WINDOW WITH AUXILIARY DATA STRUCTURE
-
-Problem: Find minimum window substring containing all characters of pattern
+## DYNAMIC WINDOW WITH AUXILIARY DATA STRUCTURE
 
 ```
+Problem: Find minimum window substring containing all characters of pattern
+
 function minWindowSubstring(s, pattern):
     left = 0
     minLength = infinity
@@ -139,18 +138,16 @@ function minWindowSubstring(s, pattern):
         return ""
 
     return s.substring(minStart, minStart + minLength)
+
+Example: s = "ADOBECODEBANC", pattern = "ABC"
+Window expands until all chars found: "ADOBEC" (has A, B, C)
+Window shrinks: "DOBEC" (still has A, B, C? No - missing A)
+Continue expanding: "ODEBANC" (has A, B, C)
+Window shrinks: "BANC" (minimal valid window)
+Result: "BANC"
 ```
 
-// Example: s = "ADOBECODEBANC", pattern = "ABC"
-// Window expands until all chars found: "ADOBEC" (has A, B, C)
-// Window shrinks: "DOBEC" (still has A, B, C? No - missing A)
-// Continue expanding: "ODEBANC" (has A, B, C)
-// Window shrinks: "BANC" (minimal valid window)
-// Result: "BANC"
-
-================================================================================
-KEY DIFFERENCES SUMMARY
-================================================================================
+### KEY DIFFERENCES SUMMARY
 
 Fixed Window:
 
@@ -173,9 +170,7 @@ Dynamic with Auxiliary Structure:
 - More sophisticated validity checking
 - Time: O(n), Space: O(m) where m is pattern/constraint size
 
-================================================================================
-WHEN TO USE EACH TECHNIQUE
-================================================================================
+### WHEN TO USE EACH TECHNIQUE
 
 Fixed Window:
 
