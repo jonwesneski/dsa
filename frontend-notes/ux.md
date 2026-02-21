@@ -1,3 +1,7 @@
+## CSS
+
+[CSS study guide](https://www.freecodecamp.org/learn/responsive-web-design-v9/review-css/review-css)
+
 ## Heuristics (Nielsen's 10 Usability Heuristics)
 
 Guidelines to make user interface more usable/friendly/intuitve

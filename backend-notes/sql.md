@@ -21,8 +21,8 @@ LIMIT 5 OFFSET 0;                    // 8. Trim final result set
 ## JOINS
 
 - INNER JOIN: returns rows that match the condition/clause
-- LEFT OUTER JOIN: returns all rows and fills in NULL columns on the joined table where the condition/clause is not met/satisfied
-- RIGHT OUTER JOIN: returns all rows and fills in NULL columns on the FROM table where the condition/clause is not met/satisfied
+- LEFT OUTER JOIN: returns all rows and fills in NULL columns on the "joined table" where the condition/clause is not met/satisfied
+- RIGHT OUTER JOIN: returns all rows and fills in NULL columns on the "FROM table" where the condition/clause is not met/satisfied
 
 ## INNER JOIN
 
@@ -161,7 +161,7 @@ FROM orders;
 | 4   | 2       | 75     | 275                 |
 | 5   | 3       | 40     | 40                  |
 
-## CASE WHEN
+## CASE WHEN (AKA Conditional aggregations)
 
 When you want to display a different value for something; like 0 instead of NULL
 
@@ -173,4 +173,83 @@ FROM users u
 LEFT OUTER JOIN orders o
     ON u.id = o.user_id
 GROUP BY u.name;
+```
+
+## Subqueries
+
+These are queries within the queries. They can be placed in: `WHERE`, `FROM`, or `SELECT`. Subquery acts like a dynamic filter list.
+
+| Type                        | Runs How Many Times? | Depends On Outer Row? |
+| --------------------------- | -------------------- | --------------------- |
+| **Non-correlated subquery** | Once                 | ❌ No                 |
+| **Correlated subquery**     | Once per outer row   | ✅ Yes                |
+
+### Non-correlated subquery
+
+```sql
+SELECT name
+FROM users
+WHERE id IN (
+    SELECT user_id
+    FROM orders
+);
+```
+
+### Correlated subquery
+
+```sql
+SELECT
+    u.name,
+    (
+        SELECT COUNT(*)
+        FROM orders o
+        WHERE o.user_id = u.id -- references outer query
+    ) AS order_count
+FROM users u;
+```
+
+When to use them:
+
+- When you need a filter based on a computed set: "Find users who have at least one completed order"
+- When you need aggregation before filtering: "Find users who total spending is greater than 100"
+- When it improves readability: Sometimes a subquery is clearer than a complex JOIN with HAVING
+
+When to not use them:
+
+- When a JOIN is cleaner
+- When it causes repeated execution (Correlated subquery trap)
+
+```sql
+SELECT name
+FROM users
+WHERE id IN (
+    SELECT user_id
+    FROM orders
+    WHERE status = 'completed'
+);
+
+/*
+Step 1: Inner query runs first
+
+orders
+---------
+user_id
+---------
+1
+2
+3
+
+↓
+
+Step 2: Outer query uses that result
+
+users
+---------
+id | name
+---------
+1  | Alice   ← keep
+2  | Bob     ← keep
+3  | Charlie ← keep
+4  | Diana   ← remove
+*/
 ```
